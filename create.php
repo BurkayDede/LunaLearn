@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
  
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -12,6 +11,8 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
 
 
 ?>
+<!DOCTYPE html>
+
 
 <html lang="en">
 
@@ -63,7 +64,7 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
 
 
 
-
+            <script src="js/scripts.js"></script>
 
             <!-- Page content-->
             <section class="py-5">
@@ -73,23 +74,38 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
                 <a class="navbar-brand" href="#">Inhaltsverzeichnis</a>
 
                     <nav class="nav nav-pills flex-column">
-                    <?php 
-                            $counter = 0;
-                            while ($row = mysqli_fetch_assoc($result)){
-                                
-                    ?>
+                    <table id="example" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Thema</th>
+                                <th>Beschreibung</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                    $counter = 0;
+                                    while ($row = mysqli_fetch_assoc($result)){
+                                        
+                            ?>
+                                <tr>
+                                    <td></td>
+                                    <td><?php echo $row["Topic"];?></td>
+                                    <td><?php echo $row["Definition"];?></td>
+    
+                                </tr>
+                                <!--<a class="nav-link" href="#< echo $counter?>"> </a>-->
 
-                        <a class="nav-link" href="#<?php echo $counter?>"> <?php echo $row["Topic"];?></a>
+                                <!--<nav class="nav nav-pills flex-column">
+                                <a class="nav-link ms-3 my-1" href="#item-1-1">Item 1-1</a>
+                                </nav>-->
 
-                        <!--<nav class="nav nav-pills flex-column">
-                        <a class="nav-link ms-3 my-1" href="#item-1-1">Item 1-1</a>
-                        </nav>-->
-
-                        <?php
-                                $counter++;
-                            }
-                        ?>
-                        
+                                <?php
+                                        $counter++;
+                                    }
+                                ?>
+                        </tbody>
+                    </table>
                     </nav>
 
                 </nav>
