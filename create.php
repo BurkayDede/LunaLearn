@@ -13,6 +13,13 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
 ?>
 <!DOCTYPE html>
 
+<!-- Import JS -->
+<!-- Show Data function -->
+<script type = "text/javascript" src="js/scripts.js"></script>
+
+<!-- Export to PDF functions-->
+<script type = "text/javascript" src="js/export.js"></script>
+
 
 <html lang="en">
 
@@ -64,8 +71,6 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
 
 
 
-            <script src="js/scripts.js"></script>
-
             <!-- Page content-->
             <section class="py-5">
                 <div class="container px-5">
@@ -77,7 +82,7 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
                     <table id="example" class="display" style="width:100%">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Select </th>
                                 <th>Thema</th>
                                 <th>Beschreibung</th>
                             </tr>
@@ -119,6 +124,9 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
                     
                 </div>
             </section>
+            <p><input type="button" id="bt" value="Show Table Data" onclick="showTableData()" /></p>
+            <p id="topic"></p>
+            <p id="description"></p>
         </main>
 
 
@@ -150,5 +158,6 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        
     </body>
 </html>
