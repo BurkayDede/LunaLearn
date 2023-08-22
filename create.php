@@ -16,11 +16,63 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
 <!-- Import JS -->
 <!-- Show Data function -->
 <script type = "text/javascript" src="js/scripts.js"></script>
-
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin = "anonymous" referrerpolicy = "no-referrer"> </script>
 <!-- Export to PDF functions-->
 <script type = "text/javascript" src="js/export.js"></script>
+<script type = "text/javascript">
+function showTableData2() {
+    //Reference the Table.
+    var myTab = document.getElementById("example");
+
+    //Reference the CheckBoxes in Table.
+    
+    var checkBoxes = myTab.getElementsByTagName("INPUT");
+    
+    var topic = "";
+    
+    var content ="";
+
+    var result = "";
+    for (var i = 0; i < checkBoxes.length; i++) {
+
+        if (checkBoxes[i].checked) {
+        
+            var row = checkBoxes[i].parentNode.parentNode;
+        
+            topic += row.cells[1].innerHTML;
+            
+            content += row.cells[2].innerHTML;
+           
+            result += topic;
+            result += "\n";
+            result += "\n";
+            result += content;
+            result += "\n";
+            result += "\n";
+            result += "-------------------------------------------------";
+            result += "\n";
+
+            topic = "";
+            content ="";
+
+        }
+    }
+    var blob = new Blob([result], {
+            type: "text/plain;charset=utf-8",
+         });
+    saveAs(blob, "download.txt");
+    //set fso = CreateObject("Scripting.FileSystemObject");  
 
 
+    /*set s = fso.CreateTextFile("C:\test.txt", True);
+    s.writeline("HI");
+    s.writeline("Bye");
+    s.writeline("-----------------------------");
+    s.Close();*/
+
+
+    
+}</script>
 <html lang="en">
 
     <head>
@@ -79,11 +131,12 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
                 <a class="navbar-brand" href="#">Inhaltsverzeichnis</a>
 
                     <nav class="nav nav-pills flex-column">
-                    <table id="example" class="display" style="width:100%">
+                    <table id="example"  class="display" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Select </th>
-                                <th>Thema</th>
+                                <th style="width:80px">&nbsp;</th>
+                                
+                                <th style="width:150px" > Thema</th>
                                 <th>Beschreibung</th>
                             </tr>
                         </thead>
@@ -94,11 +147,13 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
                                         
                             ?>
                                 <tr>
-                                    <td></td>
+                                    <td><input type="checkbox"/></td>
+                                    
                                     <td><?php echo $row["Topic"];?></td>
                                     <td><?php echo $row["Definition"];?></td>
     
                                 </tr>
+                                </>
                                 <!--<a class="nav-link" href="#< echo $counter?>"> </a>-->
 
                                 <!--<nav class="nav nav-pills flex-column">
@@ -124,7 +179,13 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
                     
                 </div>
             </section>
-            <p><input type="button" id="bt" value="Show Table Data" onclick="showTableData()" /></p>
+            
+            <p><input style="  border: 1px solid black;
+  background-color: lightblue;
+  padding-top: 50px;
+  padding-right: 30px;
+  padding-bottom: 50px;
+  padding-left: 80px;" type="button" id="convertbutton" value="Create" onclick="showTableData2()" /></p>
             <p id="topic"></p>
             <p id="description"></p>
         </main>
