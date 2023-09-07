@@ -13,13 +13,13 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
 ?>
 <!DOCTYPE html>
 
-<!-- Import JS -->
-<!-- Show Data function -->
-<script type = "text/javascript" src="js/scripts.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin = "anonymous" referrerpolicy = "no-referrer"> </script>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
-<!-- Export to PDF functions-->
-<script type = "text/javascript" src="js/export.js"></script>
+
+
+
+
+
+
+
 <script type = "text/javascript">
 function showTableData2() {
     //Reference the Table.
@@ -71,12 +71,28 @@ function showTableData2() {
     s.writeline("-----------------------------");
     s.Close();*/
 
+}
 
-    
-}</script>
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html lang="en">
 
     <head>
+
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content />
@@ -88,6 +104,15 @@ function showTableData2() {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/buttonDiv.css" rel="stylesheet" />
+
+                <!-- Import JS -->
+        <!-- Show Data function -->
+        <script type = "text/javascript" src="js/scripts.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin = "anonymous" referrerpolicy = "no-referrer"> </script>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <!-- Export to PDF functions-->
+
     </head>
     <body class="d-flex flex-column">
         <main class="flex-shrink-0">
@@ -126,69 +151,55 @@ function showTableData2() {
 
             <!-- Page content-->
             <section class="py-5">
+
                 <div class="container px-5">
 
-                <nav id="navbar-example3" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
-                <a class="navbar-brand" href="#">Inhaltsverzeichnis</a>
-
-                    <nav class="nav nav-pills flex-column">
-                    <table id="example"  class="display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th style="width:80px">&nbsp;</th>
-                                
-                                <th style="width:150px" > Thema</th>
-                                <th>Beschreibung</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                                    $counter = 0;
-                                    while ($row = mysqli_fetch_assoc($result)){
-                                        
-                            ?>
-                                <tr>
-                                    <td><input type="checkbox"/></td>
-                                    
-                                    <td><?php echo $row["Topic"];?></td>
-                                    <td><?php echo $row["Definition"];?></td>
+                    <nav id="navbar-example3" class="navbar navbar-light bg-light flex-column align-items-stretch p-3">
+                        <a class="navbar-brand" href="#">Inhaltsverzeichnis</a>
+                        <hr>
+                        </br>
+                        <nav class="nav nav-pills flex-column" style="     max-height:500px; overflow-y:auto;  ">
+                            <table id="example"  class="display" style=" width:100%; border-collapse: collapse;  ">
     
-                                </tr>
-                                </>
-                                <!--<a class="nav-link" href="#< echo $counter?>"> </a>-->
+                                
+                                <tbody>
+                                        <?php 
 
-                                <!--<nav class="nav nav-pills flex-column">
-                                <a class="nav-link ms-3 my-1" href="#item-1-1">Item 1-1</a>
-                                </nav>-->
+                                            while ($row = mysqli_fetch_assoc($result)){
+                                                
+                                        ?>
+                                        
+                                        <tr style=" border-bottom: 1px solid black;">
+                                            <td><input type="checkbox"/></td>
+                                            <td></td>
+                                            <td style="border-right: 1px solid black;font-weight: bold;"><?php echo $row["Topic"];?></td>
+                                            <td><?php echo $row["Definition"];?></td>
+                                                  
+                                        </tr>
+                                        
+                                     
 
-                                <?php
-                                        $counter++;
-                                    }
-                                ?>
-                        </tbody>
-                    </table>
+                                                    
+                                        <?php
+
+                                            }
+                                        ?>
+                                </tbody>
+                            </table>
+                        </nav>
+
                     </nav>
-
-                </nav>
-
 
                 </div>
 
                            
 
  
-                    
-                </div>
-            </section>
             
-        
-            <button onclick="showTableData2()">
-            <span>Create Sheet</span>
-            <svg viewBox="-5 -5 110 110" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,0 C0,0 100,0 100,0 C100,0 100,100 100,100 C100,100 0,100 0,100 C0,100 0,0 0,0"/>
-            </svg>
-            </button>
-
+                
+            </section>
+            <div class="buttonDiv"> <button onclick="showTableData2()" class="createButton"> Create </button>    </div>
+                  
             <p id="topic"></p>
             <p id="description"></p>
         </main>

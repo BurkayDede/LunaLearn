@@ -33,33 +33,4 @@ function showTableData() {
 }
 
 
-function showTableData2() {
-    //Reference the Table.
-    var myTab = document.getElementById("example");
-
-    //Reference the CheckBoxes in Table.
-    
-    var checkBoxes = myTab.getElementsByTagName("INPUT");
-    alert("  ");
-    var topic = "";
-    
-    var content ="";
-
-
-    for (var i = 0; i < checkBoxes.length; i++) {
-
-        if (checkBoxes[i].checked) {
-        
-            var row = checkBoxes[i].parentNode.parentNode;
-        
-            topic += row.cells[1].innerHTML;
-            
-            content += row.cells[2].innerHTML;
-           
-            
-        }
-    }
-    
-    
-}
 

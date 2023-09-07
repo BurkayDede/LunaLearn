@@ -1,0 +1,22 @@
+.buttonDiv{
+    
+    margin-top:400px ;
+    float: right;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.createButton{
+
+    width: 125px;
+    height: 50px;
+    transition-duration: 0.4s;
+    border-width: 0.5px;
+}
+
+.createButton:hover{
+
+    background-color: #90e2fc; 
+    
+}
+
