@@ -17,6 +17,7 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen");
 <!-- Show Data function -->
 <script type = "text/javascript" src="js/scripts.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin = "anonymous" referrerpolicy = "no-referrer"> </script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 <!-- Export to PDF functions-->
 <script type = "text/javascript" src="js/export.js"></script>
 <script type = "text/javascript">
@@ -180,12 +181,14 @@ function showTableData2() {
                 </div>
             </section>
             
-            <p><input style="  border: 1px solid black;
-  background-color: lightblue;
-  padding-top: 50px;
-  padding-right: 30px;
-  padding-bottom: 50px;
-  padding-left: 80px;" type="button" id="convertbutton" value="Create" onclick="showTableData2()" /></p>
+        
+            <button onclick="showTableData2()">
+            <span>Create Sheet</span>
+            <svg viewBox="-5 -5 110 110" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,0 C0,0 100,0 100,0 C100,0 100,100 100,100 C100,100 0,100 0,100 C0,100 0,0 0,0"/>
+            </svg>
+            </button>
+
             <p id="topic"></p>
             <p id="description"></p>
         </main>
