@@ -7,7 +7,7 @@ $link = mysqli_connect("127.0.0.1", "root", "", "test");
 mysqli_select_db($link, "test");
 
 /* get the name of the current default database */
-$result = mysqli_query($link, "SELECT * FROM lunawissen");
+$result = mysqli_query($link, "SELECT * FROM lunawissen ORDER BY `Alphabet` ASC");
 
 
 ?>
@@ -71,6 +71,18 @@ function showTableData2() {
     s.writeline("-----------------------------");
     s.Close();*/
 
+}
+
+function insertInList(value,title){
+
+    //Reference the Table.
+    
+    
+    alert(title)
+
+    var topic = "";
+    
+    var content ="";
 }
 
 </script>
@@ -166,13 +178,17 @@ function showTableData2() {
                                         <?php 
 
                                             while ($row = mysqli_fetch_assoc($result)){
-                                                
-                                        ?>
+                                                                                        ?>
                                         
                                         <tr style=" border-bottom: 1px solid black;">
-                                            <td><input type="checkbox"/></td>
-                                            <td></td>
-                                            <td style="border-right: 1px solid black;font-weight: bold;"><?php echo $row["Topic"];?></td>
+                                            
+                                            <td style="border-right: 1px solid black;"><button onclick="insertInList(this.value, this.title)"
+                                            style="font-weight:bold; border-width: 0px; background-color: transparent;" class="link" 
+                                            value="<?php echo $row["Topic"];?>" title="<?php echo $row["Definition"];?>">
+
+                                            <?php echo $row["Topic"];?></button>
+                                            </td>
+                                            
                                             <td><?php echo $row["Definition"];?></td>
                                                   
                                         </tr>
