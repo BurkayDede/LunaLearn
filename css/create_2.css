@@ -1,0 +1,68 @@
+body {
+    display: flex;
+    flex-flow: space-between;
+    height: 100vh;
+    font-family: "Rubik";
+    margin: 0;
+    color: #333344;
+    line-height: 1.53em;
+    font-size: 1.2rem;
+    background-color: #efeeff;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Rubik Mono One";
+    font-weight: 300;
+    margin-top: 3rem;
+    color: #484866;
+  }
+  
+  main {
+    flex: 3 3 100%;
+    overflow: auto;
+    padding: 2rem 3rem;
+  }
+  
+  nav {
+    flex: 1 1 300px;
+    background-color: #333344;
+    min-width: 240px;
+    paddings: 1rem;
+    overflow-y: auto;
+  }
+  
+  h1,
+  h2,
+  p {
+    max-width: 700px;
+  }
+  
+  a {
+    color: #eeeeff;
+    text-decoration: none;
+  }
+  
+  .active {
+    color: #ff8888;
+    font-weight: bold;
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 1.25rem;
+  }
+  
+  ul li::before {
+    content: "\2022";
+    color: #eeeeff;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+  
