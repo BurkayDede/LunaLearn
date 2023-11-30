@@ -11,12 +11,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-#example{
 
-  width:100px;
-  max-height:250px;
-  overflow-y:auto;
-}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

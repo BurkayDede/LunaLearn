@@ -20,88 +20,10 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen ORDER BY `Alphabet` ASC"
 
 
 
-<script type = "text/javascript">
-function showTableData2() {
-    //Reference the Table.
-    var myTab = document.getElementById("example");
-
-    //Reference the CheckBoxes in Table.
-    
-    var checkBoxes = myTab.getElementsByTagName("INPUT");
-    
-    var topic = "";
-    
-    var content ="";
-
-    var result = "";
-    for (var i = 0; i < checkBoxes.length; i++) {
-
-        if (checkBoxes[i].checked) {
-        
-            var row = checkBoxes[i].parentNode.parentNode;
-        
-            topic += row.cells[1].innerHTML;
-            
-            content += row.cells[2].innerHTML;
-           
-            result += topic;
-            result += "\n";
-            result += "\n";
-            result += content;
-            result += "\n";
-            result += "\n";
-            result += "-------------------------------------------------";
-            result += "\n";
-
-            topic = "";
-            content ="";
-
-        }
-    }
-    var blob = new Blob([result], {
-            type: "text/plain;charset=utf-8",
-         });
-    saveAs(blob, "download.txt");
-    //set fso = CreateObject("Scripting.FileSystemObject");  
-
-
-    /*set s = fso.CreateTextFile("C:\test.txt", True);
-    s.writeline("HI");
-    s.writeline("Bye");
-    s.writeline("-----------------------------");
-    s.Close();*/
-
-}
-
-function insertInList(value,title){
-
-    //Reference the Table.
-    
-    
-    alert(title)
-
-    var topic = "";
-    
-    var content ="";
-}
-
-</script>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
 
@@ -117,12 +39,15 @@ function insertInList(value,title){
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/buttonDiv.css" rel="stylesheet" />
+        <link href="css/list.css" rel="stylesheet" />
 
                 <!-- Import JS -->
         <!-- Show Data function -->
         <script type = "text/javascript" src="js/scripts.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin = "anonymous" referrerpolicy = "no-referrer"> </script>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../source/styles/smart.default.css" />
+        <link rel="stylesheet" type="text/css" href="../../styles/demos.css" />
         <!-- Export to PDF functions-->
 
     </head>
@@ -178,20 +103,31 @@ function insertInList(value,title){
                                         <?php 
 
                                             while ($row = mysqli_fetch_assoc($result)){
-                                                                                        ?>
-                                        
-                                        <tr style=" border-bottom: 1px solid black;">
-                                            
-                                            <td style="border-right: 1px solid black;"><button onclick="insertInList(this.value, this.title)"
-                                            style="font-weight:bold; border-width: 0px; background-color: transparent;" class="link" 
-                                            value="<?php echo $row["Topic"];?>" title="<?php echo $row["Definition"];?>">
 
-                                            <?php echo $row["Topic"];?></button>
-                                            </td>
-                                            
-                                            <td><?php echo $row["Definition"];?></td>
-                                                  
-                                        </tr>
+                                        ?>
+                                        
+                                            <tr style=" border-bottom: 1px solid black;">
+                                               
+                                                <td style="border-right: 1px solid black;">
+                                                
+                                                <button onclick="insertInList(this.value, this.title)"
+                                                        style="font-weight:bold; border-width: 0px; background-color: transparent;" 
+                                                        class="link" 
+                                                        value="<?php echo $row["Topic"];?>" 
+                                                        title="<?php echo $row["Definition"];?>"
+                                                        >
+
+                                                    <?php echo $row["Topic"];?>
+                                                
+                                                </button>
+
+                                                </td>
+                                                
+                                                <td>
+                                                    <?php echo $row["Definition"];?>
+                                                </td>
+                                                    
+                                            </tr>
                                         
                                      
 
@@ -208,13 +144,26 @@ function insertInList(value,title){
 
                 </div>
 
-                           
+                                           
+                <div class="container px-5">
+                    
+                    <table id="tableIn">
+                        <tbody id="tablebody"> 
+                            <tr>
+                                <th>Ausgewählte Themen</th>
+                            </tr> 
+                            <tr>
+                                <td>Ausgewählte Themen</td>
+                            </tr>
 
- 
+                        </tbody>
+                    </table>
             
+        
+                </div>
                 
             </section>
-            <div class="buttonDiv"> <button onclick="showTableData2()" class="createButton"> Create </button>    </div>
+            <div class="buttonDiv"> <button onclick="getFromList()" class="createButton"> Create </button>    </div>
                   
             <p id="topic"></p>
             <p id="description"></p>
@@ -249,6 +198,107 @@ function insertInList(value,title){
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-        
+        <script type = "text/javascript">
+            function showTableData2() {
+                //Reference the Table.
+                var myTab = document.getElementById("example");
+
+                //Reference the CheckBoxes in Table.
+                
+                var checkBoxes = myTab.getElementsByTagName("INPUT");
+                
+                var topic = "";
+                
+                var content ="";
+
+                var result = "";
+                for (var i = 0; i < checkBoxes.length; i++) {
+
+                    if (checkBoxes[i].checked) {
+                    
+                        var row = checkBoxes[i].parentNode.parentNode;
+                    
+                        topic += row.cells[1].innerHTML;
+                        
+                        content += row.cells[2].innerHTML;
+                    
+                        result += topic;
+                        result += "\n";
+                        result += "\n";
+                        result += content;
+                        result += "\n";
+                        result += "\n";
+                        result += "-------------------------------------------------";
+                        result += "\n";
+
+                        topic = "";
+                        content ="";
+
+                    }
+                }
+                var blob = new Blob([result], {
+                        type: "text/plain;charset=utf-8",
+                    });
+                saveAs(blob, "download.txt");
+                //set fso = CreateObject("Scripting.FileSystemObject");  
+
+
+                /*set s = fso.CreateTextFile("C:\test.txt", True);
+                s.writeline("HI");
+                s.writeline("Bye");
+                s.writeline("-----------------------------");
+                s.Close();*/
+
+            }
+
+            function insertInList(value,title){
+
+                //Reference the Table.
+                
+                
+                //alert(title)
+                var myTextField = document.getElementById("tableIn");
+                var topic = "";
+                
+                var content ="";
+
+                
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+                const cellText = document.createTextNode(value);
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+                myTextField.appendChild(row);
+            }
+
+            function getFromList(){
+
+
+                var myTextField = document.getElementById("tableIn")[0];
+                alert(myTextField);
+                var myTableBody = myTextField.getElementById("tablebody");
+                alert(myTableBody);
+                var myRow = myTableBody.getElementsByTagName("tr")[0];
+                var myCell = myRow.getElementsByTagName("td")[0];
+                alert(myCell);
+
+                var result = "";
+                result += myTable;
+                result += "\n";
+
+                result += "\n";
+                result += "\n";
+                result += "-------------------------------------------------";
+                result += "\n";
+
+                topic = "";
+                content ="";
+
+                var blob = new Blob([result], {
+                        type: "text/plain;charset=utf-8",
+                    });
+                saveAs(blob, "download.txt");
+            }
+            </script>
     </body>
 </html>
