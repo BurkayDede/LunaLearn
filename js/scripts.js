@@ -5,7 +5,7 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
-new DataTable('example', {
+/*new DataTable('example', {
     columnDefs: [
         {
             orderable: false,
@@ -20,3 +20,4 @@ new DataTable('example', {
     order: [[1, 'asc']]
 });
 
+*/

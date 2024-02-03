@@ -1,14 +1,31 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="js/script_create.js"></script>
+
 <?php
  
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $link = mysqli_connect("127.0.0.1", "root", "", "test");
 
-/* change default database to "world" */
-mysqli_select_db($link, "test");
+if ($link->connect_error) {
+    die('Connect Error: ' . $conn->connect_error);
+}else{
+    /* change default database to "world" */
+    mysqli_select_db($link, "test");
 
-/* get the name of the current default database */
-$result = mysqli_query($link, "SELECT * FROM lunawissen ORDER BY `Alphabet` ASC");
+    /* get the name of the current default database */
+    $result = mysqli_query($link, "SELECT * FROM lunawissen ORDER BY `Alphabet` ASC");
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    foreach ($rows as $row) {
 
+        $topic = $row["Topic"];
+        $content = $row["Definition"];
+        echo "<script type='text/javascript'>fillDataIntoArrays('$topic', '$content');</script>";
+    }
+
+   
+
+}
 
 ?>
 <!DOCTYPE html>
@@ -40,12 +57,11 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen ORDER BY `Alphabet` ASC"
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/buttonDiv.css" rel="stylesheet" />
         <link href="css/list.css" rel="stylesheet" />
-
+    
                 <!-- Import JS -->
      
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="../../source/styles/smart.default.css" />
-        <link rel="stylesheet" type="text/css" href="../../styles/demos.css" />
+
         <!-- Export to PDF functions-->
 
     </head>
@@ -158,12 +174,13 @@ $result = mysqli_query($link, "SELECT * FROM lunawissen ORDER BY `Alphabet` ASC"
         <script type = "text/javascript" src="js/scripts.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin = "anonymous" referrerpolicy = "no-referrer"> </script>
         <!-- Core theme JS-->
-        <script src="js/script_create.js"></script>
+        
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        
         
     </body>
 </html>
