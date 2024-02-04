@@ -1,5 +1,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script src="js/script_create.js"></script>
 
 <?php
@@ -23,22 +22,12 @@ if ($link->connect_error) {
         echo "<script type='text/javascript'>fillDataIntoArrays('$topic', '$content');</script>";
     }
 
-   
-
 }
 
 ?>
+
+
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
@@ -65,6 +54,7 @@ if ($link->connect_error) {
         <!-- Export to PDF functions-->
 
     </head>
+
     <body class="d-flex flex-column">
         <main class="flex-shrink-0">
             <!-- Navigation-->
@@ -139,7 +129,8 @@ if ($link->connect_error) {
                 </div>
                 
             </section>
-            <div class="buttonDiv"> <button onclick="getFromList()" class="createButton"> Create </button>    </div>
+
+            <div class="buttonDiv"> <button onclick="getFromList()" class="createButton"> Get cards </button>  </div>
                   
             <p id="topic"></p>
             <p id="description"></p>

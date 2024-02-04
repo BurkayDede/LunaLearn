@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         //prepare table
         var row = document.createElement('tr');
-        var breakLine =document.createElement('br');
+        row.style = 'border-bottom:1px solid black;';
 
         var checkBox_col = document.createElement('td');
         var topic = document.createElement('td');
@@ -44,17 +44,24 @@ document.addEventListener("DOMContentLoaded", function() {
         
 
         //prepare row
-        row.appendChild(checkBox_col);
         checkBox_col.style.width = '50px';
+        row.appendChild(checkBox_col);
+
+        topic.style.width = '150px';
+        topic.style = "font-weight: bold;"
         row.appendChild(topic);
-        topic.style.width = '200px';
+        
+        topicContent.style ='padding-bottom: 25px; padding-left: 10px;';
         row.appendChild(topicContent);
         
         checkbox.textContent = description;
-
+        
+        var breakLine = document.createElement('br');
         //append row
+        
         databaseTable.appendChild(row);
         databaseTable.appendChild(breakLine);
+
 
         //event listener for checkboxes to fill selected items
         checkbox.addEventListener('change', function() {
@@ -79,18 +86,27 @@ document.addEventListener("DOMContentLoaded", function() {
       const row = document.createElement('tr');
       const title = document.createElement('td');
       const description = document.createElement('td');
+      row.style = 'border-bottom:1px solid black;';
 
-      //add horizontal line as breakline
-      const breakLine = document.createElement('hr');
+      //add new line
+      const breakLine = document.createElement('br');
+     
+
 
       //add selected content to the row
       title.textContent = entry;
       description.textContent = content;
       
+
+      title.style.width = '150px';
+      title.style = "font-weight: bold;"
       row.appendChild(title);
-      title.style.width = '200px';
+  
+      description.style ='padding-bottom: 25px; padding-left: 10px;';
       row.appendChild(description);
 
+ 
+      
       // add to table
       selectedEntriesTable.appendChild(row);
       selectedEntriesTable.appendChild(breakLine);
@@ -152,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let woerter = text.split(' ');
 
     // Füge nach dem zehnten Leerzeichen ein Zeilenumbruch hinzu
-    for (let i = 8; i < woerter.length; i += 8) {
+    for (let i = 8; i < woerter.length; i += 10) {
         woerter[i] += '\n';
     }
 
@@ -176,38 +192,78 @@ document.addEventListener("DOMContentLoaded", function() {
     // Zugriff auf alle Zeilen in der zweiten Tabelle
     const rows = secondTable.getElementsByTagName('tr');
     var result = "";
-    // Iteration durch die Zeilen
-    for (let i = 0; i < rows.length; i++) {
-
-        // Zugriff auf die Zellen in jeder Zeile
-       const cells = rows[i].getElementsByTagName('td');
-       var content = cells[1].textContent;
-
-       var foldedtext = fold(content);
-       
-       
- 
-       result += cells[0].textContent;
-
-       result += "\n";
-       result += "\n";
-       result += foldedtext;
-       result += "\n";
-       result += "\n";
-       result += "____________________________________________________________________________________";
-       result += "\n";
-       result += "\n";
-   
-    
-    }
-
+    var y =20;
+    var fontSize = 10;
 
     window.jsPDF = window.jspdf.jsPDF;
-    var doc = new jsPDF();
-    doc.text(result, 10, 20);
-    
-    doc.save('LL_LearningStuff.pdf');
 
+    
+    // Iteration durch die Zeilen
+    if(rows.length > 0){
+
+        for (let i = 0; i < rows.length; i++) {
+
+
+            // Zugriff auf die Zellen in jeder Zeile
+          const cells = rows[i].getElementsByTagName('td');
+          var content = cells[1].textContent;
+
+          var foldedtext = fold(content);
+          
+          
+    
+          result += "| " + cells[0].textContent + " |";
+          result += "\n";
+
+          result += "\n";
+          result += "\n";
+          result += foldedtext;
+          result += "\n";
+          result += "\n";
+          result += "__________________________________________________________________________________";
+          result += "\n";
+          result += "\n";
+
+          
+        }
+
+
+        //prepare PDF
+        var doc = new jsPDF();
+        
+        //set image
+        var img = new Image()
+        img.src = 'assets/cat.png'
+        doc.addImage(img, 'png', 175, 5, 20, 30)
+        
+        //counter to count pages
+        var cntPage = 1;
+
+        //set maxwidth
+        var textLines = doc.splitTextToSize(result, 275);
+        doc.setFontSize(10);
+
+        // Überprüfe, ob der Text in die verbleibende Höhe der aktuellen Seite passt
+        var remainingHeight = doc.internal.pageSize.height - 20;
+        
+        for (var cnt = 0; cnt < textLines.length; cnt++) {
+
+            if (y + fontSize > remainingHeight) {
+                // Füge eine neue Seite hinzu, wenn der Text nicht mehr auf die aktuelle Seite passt
+                cntPage += 1;
+                doc.addPage();
+                y = 20; // Setze y auf den oberen Rand der neuen Seite
+                doc.addImage(img, 'png',185,5, 15, 15)
+            }
+
+            doc.text(10, y,textLines[cnt]);
+            y += fontSize / 2;
+        }
+        doc.save('LL_LearningStuff.pdf');
+    }else{
+
+      alert("Select at least one topic !");
+    }
     /*var blob = new Blob([result], {
             type: "text/plain;charset=utf-8",
         });
